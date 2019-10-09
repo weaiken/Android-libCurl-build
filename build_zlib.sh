@@ -21,10 +21,10 @@ compile() {
 	TOOL=$3
 	ARCH_FLAGS=$4
 
-	echo '------ABI------'$ABI
-	echo '------TOOLCHAIN------'$TOOLCHAIN
-	echo '------TOOL------'$TOOL
-	echo '------ARCH_FLAGS------'$ARCH_FLAGS
+	# echo '------ABI------'$ABI
+	# echo '------TOOLCHAIN------'$TOOLCHAIN
+	# echo '------TOOL------'$TOOL
+	# echo '------ARCH_FLAGS------'$ARCH_FLAGS
 
 	export TOOLCHAIN=$TOOLCHAIN
 	
@@ -57,7 +57,7 @@ compile() {
 	# config
 	safeMakeDir $ZLIB_PATH/$ABI
 	# echo '---'$BUILD_PATH/zlib/$ABI
-	./configure --prefix=$$ZLIB_PATH/$ABI 
+	./configure --prefix=$ZLIB_PATH/$ABI 
 	checkExitCode $?
 	# clean
 	make clean
@@ -66,7 +66,7 @@ compile() {
 	make -j4
 	checkExitCode $?
 	# install
-	# make install
+	make install
 	# checkExitCode $?
 	cd $BASE_PATH
 }
@@ -84,15 +84,15 @@ echo '---TOOLCHAIN_PATH---'$TOOLCHAIN_PATH
 if [[ $1 == 'arm' ]]; then
 	#statements
 	compile $1 $TOOLCHAIN_PATH $3 "-march=armv7-a -mfloat-abi=softfp -mfpu=neon"
-# elif [[ $1 == 'arm64' ]]; then
-# 	#statements
-# 	compile $1 $TOOLCHAIN_PATH $3 "-march=armv8-a"
-# elif [[ $1 == 'x86' ]]; then
-# 	#statements
-# 	compile $1 $TOOLCHAIN_PATH $3 "-march=i686 -mtune=intel -mssse3 -mfpmath=sse -m32"
-# elif [[ $1 == 'x86_64' ]]; then
-# 	#statements
-# 	compile $1 $TOOLCHAIN_PATH $3 "-march=x86-64 -msse4.2 -mpopcnt -m64 -mtune=intel"
+elif [[ $1 == 'arm64' ]]; then
+	#statements
+	compile $1 $TOOLCHAIN_PATH $3 "-march=armv8-a"
+elif [[ $1 == 'x86' ]]; then
+	#statements
+	compile $1 $TOOLCHAIN_PATH $3 "-march=i686 -mtune=intel -mssse3 -mfpmath=sse -m32"
+elif [[ $1 == 'x86_64' ]]; then
+	#statements
+	compile $1 $TOOLCHAIN_PATH $3 "-march=x86-64 -msse4.2 -mpopcnt -m64 -mtune=intel"
 fi
 
 

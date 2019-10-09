@@ -48,6 +48,17 @@ do
 	fi
 done
 
+if [ ! -d "./source/zlib" ]; then
+	tar -zxvf ./source/zlib-1.2.11.tar.gz 
+	mv -f ./zlib-1.2.11 ./source/zlib
+fi
+
+if [ ! -d "./source/openssl" ]; then
+	tar -zxvf ./source/openssl-1.1.1d.tar.gz 
+	mv -f ./openssl-1.1.1d ./source/openssl
+fi
+
+
 
 build_for_zlib(){
 	chmod +x ./build_zlib.sh 
@@ -57,11 +68,20 @@ build_for_zlib(){
 	done
 }
 
+
+build_for_openssl(){
+	chmod +x ./build_openssl.sh 
+	for ((i=0;i<$num;i++))
+	do
+			sh ./build_openssl.sh  ${APP_ABI[i]} ${toolchains[i]} ${toolchains_build[i]}		
+	done
+}
+
 # echo '----1----'
 
 
 build_for_zlib
-
+build_for_openssl
 
 
 # sh build_openssl.sh

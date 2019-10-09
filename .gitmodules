@@ -1,6 +1,0 @@
-[submodule "source/zlib"]
-	path = source/zlib
-	url = https://github.com/madler/zlib.git
-[submodule "source/openssl"]
-	path = source/openssl
-	url = https://github.com/openssl/openssl.git
