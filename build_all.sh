@@ -58,6 +58,11 @@ if [ ! -d "./source/openssl" ]; then
 	mv -f ./openssl-1.1.1d ./source/openssl
 fi
 
+if [ ! -d "./source/curl" ]; then
+	tar -zxvf ./source/curl-7.66.0.tar.gz 
+	mv -f ./curl-7.66.0 ./source/curl
+fi
+
 
 
 build_for_zlib(){
@@ -77,11 +82,21 @@ build_for_openssl(){
 	done
 }
 
+
+build_for_curl(){
+	chmod +x ./build_curl.sh 
+	for ((i=0;i<$num;i++))
+	do
+			sh ./build_curl.sh  ${APP_ABI[i]} ${toolchains[i]} ${toolchains_build[i]}		
+	done
+}
+
 # echo '----1----'
 
 
 build_for_zlib
 build_for_openssl
+build_for_curl
 
 
 # sh build_openssl.sh
