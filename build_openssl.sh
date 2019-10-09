@@ -23,8 +23,7 @@ compile() {
 	export ANDROID_NDK_HOME=$TOOLCHAIN
 	PATH=$ANDROID_NDK_HOME/bin:$PATH
 
-	make clean
-	checkExitCode $?
+
 	# config
 	./Configure  $ABI_TYPE -d --prefix=$OPENSSL_PATH/$ABI 
 	checkExitCode $?
@@ -32,7 +31,8 @@ compile() {
 	checkExitCode $?
 	make install
 	checkExitCode $?
-
+	make clean
+	checkExitCode $?
 	cd $BASE_PATH
 }
 
