@@ -53,18 +53,12 @@ compile() {
 	export CROSS_PREFIX="$TOOLCHAIN/arm-linux-androideabi-"
 	
 
-
 	# config
 	safeMakeDir $CRUL_PATH/$ABI
-	# echo '---'$BUILD_PATH/zlib/$ABI
-	 # --prefix=$PREFIX \
-  #   --enable-static \
-  #   --enable-shared \
-  #   --host=$TOOLNAME_BASE
 
-	./configure --prefix=$CRUL_PATH/$ABI --enable-static --enable-shared  --host=$TOOL \
-	--with-ssl=$BASE_PATH/source/openssl/$ABI 
-	# checkExitCode $?
+	./configure --prefix=$CRUL_PATH/$ABI --enable-static --enable-shared   --host=$TOOL \
+	--with-ssl=$BASE_PATH/source/openssl/$ABI --with-nghttp2=$BASE_PATH/source/nghttp2/$ABI
+
 	# # make
 	make -j4
 	# checkExitCode $?
